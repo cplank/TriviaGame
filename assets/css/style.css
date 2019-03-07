@@ -1,0 +1,36 @@
+.game-board {
+    margin: 50px auto;
+    padding: 20px;
+    }
+
+
+
+
+
+.jumbotron {
+    background-image: url(../images/steven-universe-shirt-t-shirt-steven-universe-teeturtle.jpg);
+    background-size: cover;
+    color: white;
+}
+
+.guesses-box {
+    padding: 20px;
+}
+
+body {
+    background-image: url(../images/background.png);
+    background-size: cover;
+}
+
+#start-button {
+    margin: 20px auto;
+    background-image: url(../images/what-the-hex/what-the-hex.png);
+}
+
+.game-board {
+    background-image: url(../images/what-the-hex/what-the-hex.png);
+}
+
+.timer-box {
+    background-image: url(../images/what-the-hex/what-the-hex.png);
+}
