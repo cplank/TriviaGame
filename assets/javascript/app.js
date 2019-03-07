@@ -19,11 +19,14 @@ let gameBoard;
 let questions;
 let guesses;
 let timeLeft = 30;
+let correctCount = 0;
+let wrongCount = 0;
 
 
 
 //Game-board interactions 
 $("#start-button").on("click", startTimer);
+
 
 function startTimer() {
     let timer = setInterval(countDown, 1000);
@@ -40,13 +43,6 @@ function countDown() {
     }
 }
 
-
-
-//You've gotten an answer correct
-// function correctAnswer() {
-//     setTimeout($("#sardonyx").attr("<img src='assets/images/Sardonyx_PNG.png' width='100%'></img>"), 5000)
-// }
-
 //Making classes
 class Question {
     constructor(answers, question, correctAnswer) {
@@ -60,11 +56,15 @@ class Question {
         $("#guess-two").html(this.answers[1])
         $("#guess-three").html(this.answers[2])
         $("#guess-four").html(this.answers[3])
+        $("#correct-display").text(correctCount);
+        $("#wrong-display").text(wrongCount);
     }
 
 }
 
 const question1 = new Question(["Perl", "Garnet", "Amethyst", "Lapis Lazuli"], "Which gem has wings?", "Lapis Lazuli");
+
+const question2 = new Question(["Ruby + Sapphire", "Steven + Amythest", "Rose Quartz + Perl", "Lapis Lazuli + Peridot"], "Which fusion is Smokey Quartz?", "Steven + Amythest")
 
 question1.writeToPage();
 
@@ -73,3 +73,5 @@ for (let i = 0; i < 3; i++) {
     console.log(arr[i]);
 
 }
+
+

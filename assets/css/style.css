@@ -3,10 +3,6 @@
     padding: 20px;
     }
 
-
-
-
-
 .jumbotron {
     background-image: url(../images/steven-universe-shirt-t-shirt-steven-universe-teeturtle.jpg);
     background-size: cover;
@@ -31,6 +27,20 @@ body {
     background-image: url(../images/what-the-hex/what-the-hex.png);
 }
 
-.timer-box {
-    background-image: url(../images/what-the-hex/what-the-hex.png);
+#timer {
+color: lightcoral;
+}
+
+.score-box {
+    font-size: 20px;
+    color: lightcoral;
+}
+
+.col-md-4 {
+    position: relative;
+}
+
+#sardonyx {
+    position: absolute;
+    top: 45px;
 }

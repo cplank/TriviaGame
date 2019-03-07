@@ -25,10 +25,10 @@
         <div class="row">
             <div class="col-md-4"></div>
 
-            <div class="col-md-4">
-                <div class="timer-box">
-                    <h1 id="timer" class="float-right">00:00</h1>
-                </div>
+            <div id="timer-box" class="col-md-4">
+
+                <h1 id="timer" class="float-right">00:00</h1>
+
             </div>
             <div class="col-md-4"></div>
         </div>
@@ -53,6 +53,24 @@
                             Three Goes Here</button>
                         <button id="guess-four" type="button" class="btn btn-outline-primary btn-lg btn-block">Guess
                             Four Goes Here</button>
+                    </div>
+                    <div class="score-box">
+                        <div class="row">
+                            <div class="col-md-6">
+                                <div class="corect-box float-left">
+                                    <span>Answers correct: </span>
+                                    <br>
+                                    <span id="correct-display"></span>
+                                </div>
+                            </div>
+                            <div class="col-md-6">
+                                <div class="wrong-box float-right">
+                                    <span>Answers incorrect: </span>
+                                    <br>
+                                    <span id="wrong-display"></span>
+                                </div>
+                            </div>
+                        </div>
                     </div>
                 </div>
             </div>
