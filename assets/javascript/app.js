@@ -18,17 +18,16 @@
 let gameBoard;
 let questions;
 let guesses;
-let timeLeft = 10;
+let timeLeft = 20;
 let correctCount = 0;
 let wrongCount = 0;
 let intervalId;
-
-
 
 //Game-board interactions 
 $("#start-button").on("click", startTimer);
 $('#start-button').click(function () {
     $(this).hide();
+    question1.writeToPage();
 });
 
 //Timer NONSENSE
@@ -49,6 +48,7 @@ function decrement() {
     if (timeLeft === 0) {
         stopTimer();
         console.log("Time's up!!")
+
     }
 }
 
@@ -72,17 +72,45 @@ class Question {
         $("#guess-four").html(this.answers[3])
         $("#correct-display").text(correctCount);
         $("#wrong-display").text(wrongCount);
+
+        //Inside the onclick function, this refers to the button that is being clicked. Which means I can't use this 
+        //to reference the correctAnswer button. So I have to declare this outside of the onclick function. 
+        let me = this;
+        $(".btn").on("click", function () {
+            wrongCount++
+            $("#wrong-display").text(wrongCount)
+            me.correctAnswer.attr("class", "btn btn-lg btn-block btn-danger")
+            stopTimer();
+        });
+        this.correctAnswer.off("click");
+        this.correctAnswer.on("click", function () {
+            correctCount++
+            $("#correct-display").text(correctCount)
+            stopTimer()
+            $("#sardonyx").hide()
+            setTimeout(fiveSeconds, 1000 * 5);
+            function fiveSeconds() {
+                $("#sardonyx").show()
+            }
+
+        });
+
+    }
+
+    takeOffPage() {
+        $(".btn").off("click")
+        this.correctAnswer.attr("class", "btn btn-lg btn-block btn-outline-primary")
     }
 
 }
 
-const question1 = new Question(["Perl", "Garnet", "Amethyst", "Lapis Lazuli"], "Which gem has wings?", "Lapis Lazuli")
+const question1 = new Question(["Perl", "Garnet", "Amethyst", "Lapis Lazuli"], "Which gem has wings?", $("#guess-four"))
 
 const question2 = new Question(["Ruby + Sapphire", "Steven + Amythest", "Rose Quartz + Perl", "Lapis Lazuli + Peridot"], "Which fusion is Smokey Quartz?", "Steven + Amythest")
 
-question1.writeToPage();
+//Answer is Correct
+//Sardonyx appears and has congrats message, she stays around for 5 seconds. 
 
-//Reset Timer 
 
 
 
