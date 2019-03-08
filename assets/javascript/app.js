@@ -38,8 +38,9 @@ function countDown() {
         clearTimeout(timer);
         console.log("You're out of time")
     } else {
-        $("#timer").html("<h1> 00:" + timeLeft + "</h1>");
         timeLeft--;
+        $("#timer").html("<h1> 00:" + timeLeft + "</h1>");
+
     }
 }
 
@@ -73,5 +74,7 @@ for (let i = 0; i < 3; i++) {
     console.log(arr[i]);
 
 }
+
+//Show correct answer 
 
 
