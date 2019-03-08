@@ -18,30 +18,43 @@
 let gameBoard;
 let questions;
 let guesses;
-let timeLeft = 30;
+let timeLeft = 10;
 let correctCount = 0;
 let wrongCount = 0;
+let intervalId;
 
 
 
 //Game-board interactions 
 $("#start-button").on("click", startTimer);
+$('#start-button').click(function () {
+    $(this).hide();
+});
 
-
+//Timer NONSENSE
 function startTimer() {
-    let timer = setInterval(countDown, 1000);
+    clearInterval(intervalId);
+    intervalId = setInterval(decrement, 1000);
 }
-//This counts down from 30 seconds.
-function countDown() {
+
+function decrement() {
+
+    timeLeft--;
+    if (timeLeft < 10) {
+        $("#timer").html("<h1> 00:" + "0" + timeLeft + "</h1>")
+    } else {
+        $("#timer").html("<h1> 00:" + timeLeft + "</h1>")
+    }
 
     if (timeLeft === 0) {
-        clearTimeout(timer);
-        console.log("You're out of time")
-    } else {
-        timeLeft--;
-        $("#timer").html("<h1> 00:" + timeLeft + "</h1>");
-
+        stopTimer();
+        console.log("Time's up!!")
     }
+}
+
+function stopTimer() {
+
+    clearInterval(intervalId);
 }
 
 //Making classes
@@ -63,18 +76,15 @@ class Question {
 
 }
 
-const question1 = new Question(["Perl", "Garnet", "Amethyst", "Lapis Lazuli"], "Which gem has wings?", "Lapis Lazuli");
+const question1 = new Question(["Perl", "Garnet", "Amethyst", "Lapis Lazuli"], "Which gem has wings?", "Lapis Lazuli")
 
 const question2 = new Question(["Ruby + Sapphire", "Steven + Amythest", "Rose Quartz + Perl", "Lapis Lazuli + Peridot"], "Which fusion is Smokey Quartz?", "Steven + Amythest")
 
 question1.writeToPage();
 
-let arr = [];
-for (let i = 0; i < 3; i++) {
-    console.log(arr[i]);
+//Reset Timer 
 
-}
 
-//Show correct answer 
+
 
 
