@@ -1,3 +1,4 @@
+
 //When the website loads, there's a button that says "start"
 //The user will have 20 seconds to answer each questions. 
 //If the user gets the answer correct, Sardonyx appears to congratulate them and give a fun fact. 
@@ -16,12 +17,13 @@
 //Let's make some variables
 
 let gameBoard;
-let questions;
+let questions = []; //question9, question10, question11, question12, question13, question14, question15];
 let guesses;
 let timeLeft = 20;
 let correctCount = 0;
 let wrongCount = 0;
 let intervalId;
+let questionCounter = 0;
 
 //Game-board interactions 
 $("#start-button").on("click", startTimer);
@@ -53,7 +55,6 @@ function decrement() {
 }
 
 function stopTimer() {
-
     clearInterval(intervalId);
 }
 
@@ -73,6 +74,7 @@ class Question {
         $("#correct-display").text(correctCount);
         $("#wrong-display").text(wrongCount);
 
+
         //Inside the onclick function, this refers to the button that is being clicked. Which means I can't use this 
         //to reference the correctAnswer button. So I have to declare this outside of the onclick function. 
         let me = this;
@@ -82,19 +84,22 @@ class Question {
             me.correctAnswer.attr("class", "btn btn-lg btn-block btn-danger")
             stopTimer();
         });
+
         this.correctAnswer.off("click");
         this.correctAnswer.on("click", function () {
             correctCount++
             $("#correct-display").text(correctCount)
             stopTimer()
             $("#sardonyx").hide()
-            setTimeout(fiveSeconds, 1000 * 5);
-            function fiveSeconds() {
+            setTimeout(threeSeconds, 1000 * 3);
+            function threeSeconds() {
                 $("#sardonyx").show()
+                questionCounter++
+                questions[questionCounter].writeToPage()
+                timeLeft = 21;
+                startTimer()
             }
-
         });
-
     }
 
     takeOffPage() {
@@ -106,13 +111,18 @@ class Question {
 
 const question1 = new Question(["Perl", "Garnet", "Amethyst", "Lapis Lazuli"], "Which gem has wings?", $("#guess-four"))
 
-const question2 = new Question(["Ruby + Sapphire", "Steven + Amythest", "Rose Quartz + Perl", "Lapis Lazuli + Peridot"], "Which fusion is Smokey Quartz?", "Steven + Amythest")
+const question2 = new Question(["Ruby + Sapphire", "Steven + Amythest", "Rose Quartz + Perl", "Lapis Lazuli + Peridot"], "Which fusion is Smokey Quartz?", $("#guess-two"))
 
-//Answer is Correct
-//Sardonyx appears and has congrats message, she stays around for 5 seconds. 
+const question3 = new Question(["Steven One", "Steven Two", "Steven Three", "Steven Four"], "Which member of Steven and the Stevens is the handsome one?", $("#guess-one"))
 
+const question4 = new Question(["Definitely not", "Destiny is a fact, there is no believe", "I have to when it's right in front of me", "I am destiny"], "Do you believe in destiny?", $("#guess-three"))
 
+const question5 = new Question(["Baking", "Magic", "Doughnuts", "Sadie"], "What is Lars' secret passion?", $("#guess-one"))
 
+const question6 = new Question(["Vidalia", "Sour Cream", "Onion", "Barb"], "Which one of these people isn't related to the others?", $("#guess-four"))
 
+const question7 = new Question(["Sneeples in Beach City", "Keep Beach City Weird", "Alien Tracker", "Best brooding places in Beach City"], "What is the name of Ronaldo's prestigous blog?", $("#guess-two"))
 
+const question8 = new Question(["The Cluster", "Trash Piles", "Meep Morps", "Van Gogh"], "What do Peridot and Lapis call their art creations?", $("#guess-three"))
 
+questions = [question1, question2, question3, question4, question5, question6, question7, question8];
