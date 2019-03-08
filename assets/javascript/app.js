@@ -80,14 +80,23 @@ class Question {
         let me = this;
         $(".btn").on("click", function () {
             wrongCount++
+            console.log("You got it wrong")
             $("#wrong-display").text(wrongCount)
             me.correctAnswer.attr("class", "btn btn-lg btn-block btn-danger")
-            stopTimer();
+            stopTimer()
+            setTimeout(twoSeconds, 1000 * 2)
+            function twoSeconds() {
+                questionCounter++
+                questions[questionCounter].writeToPage()
+                startTimer()
+            }
+
         });
 
         this.correctAnswer.off("click");
         this.correctAnswer.on("click", function () {
             correctCount++
+            console.log("You got it right")
             $("#correct-display").text(correctCount)
             stopTimer()
             $("#sardonyx").hide()
@@ -105,6 +114,7 @@ class Question {
     takeOffPage() {
         $(".btn").off("click")
         this.correctAnswer.attr("class", "btn btn-lg btn-block btn-outline-primary")
+
     }
 
 }
