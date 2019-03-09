@@ -1,31 +1,15 @@
+//Let's make some variables! Fun story - I originally made way more variables than this 
+//and didn't need them!
 
-//When the website loads, there's a button that says "start"
-//The user will have 20 seconds to answer each questions. 
-//If the user gets the answer correct, Sardonyx appears to congratulate them and give a fun fact. 
-//If the user gets the answer wrong, the correct answer is highlighted
-//If the user doesn't answer before time is up, Sardonyx appears and says "Time's out!" 
-//and correct answer will be highlighted 
-//There are 15 questions. At the end the game-board changes to say how many questions the user got
-//wrong and right. 
-
-// function startGame() {
-//     $("#start-button").on("click", function () {
-//         setTimeout($("#sardonyx").attr("<img src='assets/images/Sardonyx_PNG.png' width='100%'></img>"), 5000)
-//     })
-// }
-
-//Let's make some variables
-
-let gameBoard;
-let questions = []; //question9, question10, question11, question12, question13, question14, question15];
-let guesses;
+let questions = [];
 let timeLeft = 20;
 let correctCount = 0;
 let wrongCount = 0;
 let intervalId;
 let questionCounter = 0;
 
-//Game-board interactions 
+//Start button onclick - when the start button is clicked, the timer is started and then the 
+//
 $("#start-button").on("click", startTimer);
 $('#start-button').click(function () {
     $(this).hide();
@@ -47,10 +31,27 @@ function decrement() {
         $("#timer").html("<h1> 00:" + timeLeft + "</h1>")
     }
 
+
     if (timeLeft === 0) {
         stopTimer();
         console.log("Time's up!!")
+        let me = questions[questionCounter]
+        wrongCount++
+        $("#wrong-display").text(wrongCount)
+        me.correctAnswer.removeClass("btn-outline-primary").addClass("btn-danger")
+        stopTimer()
+        $("#sardonyx").attr("src", "assets/images/SardonyxTimeOut_PNG.png")
+        setTimeout(threeSeconds, 1000 * 3)
+        function threeSeconds() {
+            $("#sardonyx").attr("src", "assets/images/Sardonyx_PNG.png")
+            me.correctAnswer.removeClass("btn-danger").addClass("btn-outline-primary")
+            questionCounter++
+            me.takeOffPage()
+            questions[questionCounter].writeToPage()
+            timeLeft = 21;
+            startTimer()
 
+        }
     }
 }
 
@@ -82,12 +83,20 @@ class Question {
             wrongCount++
             console.log("You got it wrong")
             $("#wrong-display").text(wrongCount)
-            me.correctAnswer.attr("class", "btn btn-lg btn-block btn-danger")
+            me.correctAnswer.removeClass("btn-outline-primary").addClass("btn-danger")
             stopTimer()
-            setTimeout(twoSeconds, 1000 * 2)
-            function twoSeconds() {
+            $("#sardonyx").attr("src", "assets/images/SardonyxWrong_PNG.png")
+            setTimeout(threeSeconds, 1000 * 3)
+            function threeSeconds() {
+                $("#sardonyx").attr("src", "assets/images/Sardonyx_PNG.png")
+                me.correctAnswer.removeClass("btn-danger").addClass("btn-outline-primary")
                 questionCounter++
+                if (questionCounter === 3) {
+                    console.log("Game is Over")
+                }
+                me.takeOffPage()
                 questions[questionCounter].writeToPage()
+                timeLeft = 21;
                 startTimer()
             }
 
@@ -99,11 +108,15 @@ class Question {
             console.log("You got it right")
             $("#correct-display").text(correctCount)
             stopTimer()
-            $("#sardonyx").hide()
+            $("#sardonyx").attr("src", "assets/images/SardonyxCorrect_PNG.png")
             setTimeout(threeSeconds, 1000 * 3);
             function threeSeconds() {
-                $("#sardonyx").show()
+                $("#sardonyx").attr("src", "assets/images/Sardonyx_PNG.png")
                 questionCounter++
+                if (questionCounter === 3) {
+                    me.endOfGame()
+                }
+                me.takeOffPage()
                 questions[questionCounter].writeToPage()
                 timeLeft = 21;
                 startTimer()
@@ -111,9 +124,17 @@ class Question {
         });
     }
 
+    endOfGame() {
+        $("#timer-box").hide()
+        $("#question-display").hide()
+        $(".guesses-box").hide()
+        $("#sardonyx").attr("src", "assets/images/SardonyxEnd_PNG.png")
+
+    }
+
     takeOffPage() {
         $(".btn").off("click")
-        this.correctAnswer.attr("class", "btn btn-lg btn-block btn-outline-primary")
+        this.correctAnswer.removeClass("btn-danger").addClass("btn-outline-primary")
 
     }
 
@@ -135,4 +156,18 @@ const question7 = new Question(["Sneeples in Beach City", "Keep Beach City Weird
 
 const question8 = new Question(["The Cluster", "Trash Piles", "Meep Morps", "Van Gogh"], "What do Peridot and Lapis call their art creations?", $("#guess-three"))
 
-questions = [question1, question2, question3, question4, question5, question6, question7, question8];
+const question9 = new Question(["Veruca Salt", "Roberta Sweet", "Rebecca Sugar", "Stacy Confection"], "Who created Steven Universe?", $("#guess-three"))
+
+const question10 = new Question(["Spirit Morph Saga", "A Series of Convienent Events", "The Cloud Catcher Chornicles", "Tail of Two Kitties"], "What's the name of Connie's favorite book series?", $("#guess-one"))
+
+const question11 = new Question(["Mr. Smiley", "The Fry Family", "The Fish-Stew Family", "The Pizza Family"], "Who owns Fish Stew Pizza?", $("#guess-four"))
+
+const question12 = new Question(["Blue Diamond", "Yellow Diamond", "Pink Diamond", "White Diamond"], "Which Diamond built the human zoo?", $("#guess-one"))
+
+const question13 = new Question(["Sadie and the Cool Kids", "White Diamond", "Sadie Killer", "Ms. Miller"], "What is Sadie's stage name?", $("#guess-three"))
+
+const question14 = new Question(["Cookie Cat", "Lion Licker", "Pumpkin", "Watermelon Steven"], "Who's a refugee of an interstellar war?", $("#guess-one"))
+
+const question15 = new Question(["Through the banana stands", "In the Coconut Mines", "Inventing wheelchairs for snakes", "Back room hands of Go-Fish"], "How did Tiger Millionare make his money?", $("#guess-two"))
+
+questions = [question1, question2, question3, question4, question5, question6, question7, question8, question9, question10, question11, question12, question13, question14, question15];
