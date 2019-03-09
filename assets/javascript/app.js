@@ -121,7 +121,6 @@ class Question {
         let me = this;
         $(".btn").on("click", function () {
             wrongCount++
-            console.log("You got it wrong")
             $("#wrong-display").text(wrongCount)
             me.correctAnswer.removeClass("btn-outline-primary").addClass("btn-danger")
             stopTimer()
@@ -146,7 +145,6 @@ class Question {
         this.correctAnswer.off("click");
         this.correctAnswer.on("click", function () {
             correctCount++
-            console.log("You got it right")
             $("#correct-display").text(correctCount)
             stopTimer()
             $("#sardonyx").attr("src", "assets/images/SardonyxCorrect_PNG.png")
