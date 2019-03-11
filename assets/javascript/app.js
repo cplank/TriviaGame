@@ -57,6 +57,7 @@ function decrement() {
         //it with the class that makes the button red. stopTimer is called so the timer stops running down.
         //the sardonyx id is replaced with a new image  
         me.correctAnswer.removeClass("btn-outline-primary").addClass("btn-danger")
+        me.correctAnswer.off("click")
         stopTimer()
         $("#sardonyx").attr("src", "assets/images/SardonyxTimeOut_PNG.png")
         //This setTimeout is another method of the window. Here it calls the function three seconds (below)
@@ -123,6 +124,7 @@ class Question {
             wrongCount++
             $("#wrong-display").text(wrongCount)
             me.correctAnswer.removeClass("btn-outline-primary").addClass("btn-danger")
+            me.correctAnswer.off("click")
             stopTimer()
             $("#sardonyx").attr("src", "assets/images/SardonyxWrong_PNG.png")
             setTimeout(threeSeconds, 1000 * 3)
@@ -146,6 +148,7 @@ class Question {
         this.correctAnswer.on("click", function () {
             correctCount++
             $("#correct-display").text(correctCount)
+            me.correctAnswer.off("click")
             stopTimer()
             $("#sardonyx").attr("src", "assets/images/SardonyxCorrect_PNG.png")
             setTimeout(threeSeconds, 1000 * 3);
