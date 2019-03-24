@@ -1,6 +1,7 @@
 # TriviaGame
-https://cplank.github.io/TriviaGame/
 A 15 question Steven Universe trivia game
+
+https://cplank.github.io/TriviaGame/
 
 ## Description ##
 This trivia game was made using JavaScript and jQuery. Players start the game and have 20 seconds to 
